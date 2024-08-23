@@ -18,5 +18,4 @@ if [[ "${TARGET_OS}" == "iOS"* || "${TARGET_OS}" == "tvOS"* || "${TARGET_OS}" ==
 fi
 $TAR Jcf ffmpeg-${SUFFIX}{.tar.xz,}
 ls -lh *.xz
-[ "$GITHUB_EVENT_NAME" == "pull_request" ] && exit 0
 
