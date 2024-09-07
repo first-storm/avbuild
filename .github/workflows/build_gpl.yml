@@ -210,6 +210,7 @@ jobs:
       fail-fast: false
       matrix:
         config: [lite]
+        target: [amd64, arm64]
     steps:
     - uses: actions/checkout@v4
       with:
@@ -236,12 +237,12 @@ jobs:
       run: |
         export FFSRC=$PWD/ffmpeg-${FF_VERSION}
         export SYSROOT=/tmp/sysroot
-        USE_TOOLCHAIN=clang-${LLVM_VER:-$LLVM_VER_DEFAULT} ./avbuild.sh linux "amd64 arm64"
+        USE_TOOLCHAIN=clang-${LLVM_VER:-$LLVM_VER_DEFAULT} ./avbuild.sh linux "amd64 arm64"  # 支持amd64和arm64
     - name: Make SDK
       shell: bash
       run: |
         cp -avf tools/dep_gpl/${{ env.TARGET_OS }}_amd64/lib/* sdk-*/lib/amd64
-        cp -avf tools/dep_gpl/${{ env.TARGET_OS }}_arm64/lib/* sdk-*/lib/arm64
+        cp -avf tools/dep_gpl/${{ env.TARGET_OS }}_arm64/lib/* sdk-*/lib/arm64  # 复制arm64的库文件
         ./tools/ci-after-build.sh
     - name: Archieve SDK
       uses: actions/upload-artifact@v4
